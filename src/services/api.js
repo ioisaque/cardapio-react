@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "http://192.168.0.200/rochasdelivery.com.br/_sistema/webservices/",
+  baseURL: '_sistema/webservices',
+  // baseURL: 'https://sistema.rochasdelivery.com.br/webservices',
 });
 
 export default api;

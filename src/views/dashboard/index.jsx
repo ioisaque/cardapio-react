@@ -20,20 +20,27 @@ import { GlobalVars } from '~/styles/global';
 import { CatStyles } from '~/styles/categorias';
 
 import api from '~/services/api';
+import { BRL } from '~/services/functions';
 
 export default function Dashboard() {
   const [categorias, setCategorias] = useState([]);
   const [produtos, setProdutos] = useState([]);
 
-  const [selecionada, setSelecionada] = useState({ id: 1, nome: 'Pizzas' });
+  const [selecionada, setSelecionada] = useState({
+    id_categoria: 1,
+    nome: 'Pizzas',
+  });
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   useEffect(() => {
     async function UpdateCategorias() {
-      const { data } = await api.get('getCategorias.php');
+      const { data } = await api.get('/categorias', {
+        headers: { Origin: 'localhost' },
+      });
 
+      console.debug('Categorias => ', data);
       setCategorias(data);
     }
     UpdateCategorias();
@@ -41,10 +48,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function UpdateProdutos() {
-      const { data } = await api.post('getProdutosByCatID.php', {
-        id: selecionada.id,
-      });
+      const { data } = await api.get(
+        `/produtos?id_categoria=${selecionada.id}`
+      );
 
+      console.debug('Produtos => ', data);
       setProdutos(data);
     }
     UpdateProdutos();
@@ -71,10 +79,7 @@ export default function Dashboard() {
             {categorias.map((item) => (
               <NavItem key={item.id} onClick={() => setSelecionada(item)}>
                 <img
-                  src={
-                    'http://192.168.0.200/rochasdelivery.com.br/_sistema/' +
-                    item.foto
-                  }
+                  src={'_sistema/' + item.foto}
                   alt={item.nome}
                   className="d-none d-sm-block"
                 />
@@ -109,17 +114,14 @@ export default function Dashboard() {
                     <CardImg
                       top
                       width="100%"
-                      src={
-                        'http://192.168.0.200/rochasdelivery.com.br/_sistema/' +
-                        item.foto
-                      }
+                      src={'_sistema/' + item.foto}
                       alt={item.descricao}
                     />
                     <CardBody>
                       <CardTitle tag="h5">{item.descricao}</CardTitle>
                       <CardText>{item.ingredientes}</CardText>
                       <CardSubtitle tag="h6" className="mb-2">
-                        {'R$ ' + item.valor_venda.replace('.', ',') + '0'}
+                        {BRL(item.valor_venda)}
                       </CardSubtitle>
                     </CardBody>
                   </Card>
