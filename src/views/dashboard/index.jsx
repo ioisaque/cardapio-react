@@ -27,7 +27,7 @@ export default function Dashboard() {
   const [produtos, setProdutos] = useState([]);
 
   const [selecionada, setSelecionada] = useState({
-    id_categoria: 1,
+    id: 1,
     nome: 'Pizzas',
   });
   const [collapsed, setCollapsed] = useState(true);
@@ -36,12 +36,10 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function UpdateCategorias() {
-      const { data } = await api.get('/categorias', {
-        headers: { Origin: 'localhost' },
-      });
+      const { data } = await api.get('/categorias/');
 
-      console.debug('Categorias => ', data);
-      setCategorias(data);
+      console.debug('Categorias => ', data.data);
+      setCategorias(data.data);
     }
     UpdateCategorias();
   }, []);
@@ -49,11 +47,11 @@ export default function Dashboard() {
   useEffect(() => {
     async function UpdateProdutos() {
       const { data } = await api.get(
-        `/produtos?id_categoria=${selecionada.id}`
+        `/produtos/?id_categoria=${selecionada.id}`
       );
 
       console.debug('Produtos => ', data);
-      setProdutos(data);
+      setProdutos(data.data);
     }
     UpdateProdutos();
   }, [selecionada]);
@@ -61,7 +59,7 @@ export default function Dashboard() {
   return (
     <>
       <CatStyles />
-      <Navbar dark expand="md">
+      <Navbar dark expand="xl">
         <NavbarBrand className="ml-1 d-xl-none">
           <img
             src={GlobalVars.img.logo_w}
@@ -79,7 +77,7 @@ export default function Dashboard() {
             {categorias.map((item) => (
               <NavItem key={item.id} onClick={() => setSelecionada(item)}>
                 <img
-                  src={'_sistema/' + item.foto}
+                  src={'https://rochasdelivery.com.br/_sistema/' + item.foto}
                   alt={item.nome}
                   className="d-none d-sm-block"
                 />
@@ -114,7 +112,7 @@ export default function Dashboard() {
                     <CardImg
                       top
                       width="100%"
-                      src={'_sistema/' + item.foto}
+                      src={'https://rochasdelivery.com.br/_sistema/' + item.foto}
                       alt={item.descricao}
                     />
                     <CardBody>
