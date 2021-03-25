@@ -40,6 +40,8 @@ export default function Dashboard() {
 
       console.debug('Categorias => ', data.data);
       setCategorias(data.data);
+
+      setSelecionada(data.data.find( e => e.id === '1'));
     }
     UpdateCategorias();
   }, []);
@@ -75,7 +77,7 @@ export default function Dashboard() {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             {categorias.map((item) => (
-              <NavItem key={item.id} onClick={() => setSelecionada(item)}>
+              <NavItem key={item.id} onClick={() => {setSelecionada(item); !collapsed && toggleNavbar();}}>
                 <img
                   src={'https://rochasdelivery.com.br/_sistema/' + item.foto}
                   alt={item.nome}
@@ -107,12 +109,13 @@ export default function Dashboard() {
           <Row className="mt-5">
             {produtos &&
               produtos.map((item) => (
-                <Col xl={2} xs={6} key={item.id}>
+                <Col xl={2} md={4} xs={12} key={item.id}>
                   <Card className="produto">
                     <CardImg
                       top
                       width="100%"
-                      src={'https://rochasdelivery.com.br/_sistema/' + item.foto}
+                      className={item.foto === 'uploads/imgs/placeholder_0.png' && 'opacity'}
+                      src={'https://rochasdelivery.com.br/_sistema/' + (item.foto !== 'uploads/imgs/placeholder_0.png' ? item.foto : selecionada.foto) }
                       alt={item.descricao}
                     />
                     <CardBody>

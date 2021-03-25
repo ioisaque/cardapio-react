@@ -72,6 +72,8 @@ export const CatStyles = createGlobalStyle`
 
   .produto img {
     width: 100%;
+    min-width: 190px;
+    max-width: 250px;
     min-height: 190px;
     max-height: 250px;
     display: block;
@@ -79,6 +81,10 @@ export const CatStyles = createGlobalStyle`
     margin: 0 auto;
     object-fit: cover;
     border-radius: 5px;
+  }
+
+  .produto img.opacity {
+    opacity: .5;
   }
   
   .produto h5 {
