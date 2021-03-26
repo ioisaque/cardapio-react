@@ -41,7 +41,7 @@ export default function Dashboard() {
       console.debug('Categorias => ', data.data);
       setCategorias(data.data);
 
-      setSelecionada(data.data.find( e => e.id === '1'));
+      setSelecionada(data.data.find((e) => e.id === '1'));
     }
     UpdateCategorias();
   }, []);
@@ -61,12 +61,18 @@ export default function Dashboard() {
   return (
     <>
       <CatStyles />
-      <Navbar dark expand="xl">
-        <NavbarBrand className="ml-1 d-xl-none">
+      <Navbar dark expand="lg">
+        <NavbarBrand className="d-none d-lg-block">
+          <img
+            src={GlobalVars.img.client_logo}
+            alt="Cardápio Online - IdeYou"
+          />
+        </NavbarBrand>
+        <NavbarBrand className="d-block d-lg-none">
           <img
             src={GlobalVars.img.logo_w}
             alt="Cardápio Online - IdeYou"
-            className="hidden-lg-down"
+            style={{maxWidth: '100px', maxHeight: '100px'}}
           />
         </NavbarBrand>
         <NavbarToggler
@@ -77,7 +83,13 @@ export default function Dashboard() {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             {categorias.map((item) => (
-              <NavItem key={item.id} onClick={() => {setSelecionada(item); !collapsed && toggleNavbar();}}>
+              <NavItem
+                key={item.id}
+                onClick={() => {
+                  setSelecionada(item);
+                  !collapsed && toggleNavbar();
+                }}
+              >
                 <img
                   src={'https://rochasdelivery.com.br/_sistema/' + item.foto}
                   alt={item.nome}
@@ -112,10 +124,17 @@ export default function Dashboard() {
                 <Col xl={2} md={4} xs={12} key={item.id}>
                   <Card className="produto">
                     <CardImg
-                      top
-                      width="100%"
-                      className={item.foto === 'uploads/imgs/placeholder_0.png' && 'opacity'}
-                      src={'https://rochasdelivery.com.br/_sistema/' + (item.foto !== 'uploads/imgs/placeholder_0.png' ? item.foto : selecionada.foto) }
+                      className={
+                        item.foto === 'uploads/imgs/placeholder_0.png'
+                          ? 'opacity'
+                          : ''
+                      }
+                      src={
+                        'https://rochasdelivery.com.br/_sistema/' +
+                        (item.foto !== 'uploads/imgs/placeholder_0.png'
+                          ? item.foto
+                          : selecionada.foto)
+                      }
                       alt={item.descricao}
                     />
                     <CardBody>

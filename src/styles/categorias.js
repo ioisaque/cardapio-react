@@ -31,16 +31,12 @@ export const CatStyles = createGlobalStyle`
 
   .navbar-brand {
     display: block;
-    margin: 0 auto;
+    margin-left: 10px;
     color: ${GlobalVars.color.white};
   }
 
   .navbar-brand img {
-    max-width: 100px;
-    max-height: 100px;
-    display: block;
-    margin: 0 auto;
-    object-fit: cover;
+    max-height: 150px;
   }
 
   .nav-item {
@@ -59,7 +55,7 @@ export const CatStyles = createGlobalStyle`
   
   .nav-item p {
     width: 100%;
-    margin: 0.5rem;
+    margin: 0.5rem 0;
     font-size: 1.1rem;
     font-weight: 500;
     text-align: center;

@@ -25,6 +25,7 @@ export const GlobalVars = {
   img: {
     logo_b: require('~/img/logo-c.png'),
     logo_w: require('~/img/logo-w.png'),
+    client_logo: require('~/img/client-logo.png'),
     favicon: require('~/img/cube-c.png'),
 
     btm: require('~/img/btm-style.png'),
