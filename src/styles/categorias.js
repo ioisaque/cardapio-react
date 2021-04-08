@@ -8,7 +8,7 @@ export const CatStyles = createGlobalStyle`
     text-align: center;
   }
   .title h2 {
-    color: #000000;
+    color: #000001;
     font-size: 2.5rem;
     text-transform: uppercase;
   }
